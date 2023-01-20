@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+li {
+  list-style: none;
+}
+body {
+  background: #f0f2f5;
+}
+a {
+  text-decoration: none;
+}
+button {
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+.main {
+  margin: 0 auto;
+  max-width: 941px;
+  padding-bottom: 10px;
+}
+
+.ant-pagination {
+  display: flex;
+  justify-content: center;
+}
