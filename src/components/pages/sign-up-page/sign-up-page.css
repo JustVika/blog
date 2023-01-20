@@ -1,0 +1,26 @@
+
+.sign-up {
+  max-width: 384px;
+  margin: 0 auto;
+  margin-top: 60px;
+}
+
+.sign-up__title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 9px;
+}
+
+.sign-up__transition-text {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+  color: #8c8c8c;
+  margin-top: 8px;
+}
+.sign-up__link {
+  color: #1890ff;
+}

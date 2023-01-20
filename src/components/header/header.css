@@ -1,0 +1,81 @@
+.header {
+  height: 80px;
+  background: #ffffff;
+  box-shadow: 0 -3px 22px 0px #9aa4ac;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 22px;
+}
+.header__container{
+  margin-bottom: 34px;
+}
+.header__title {
+  font-family: "Inter UI";
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.85);
+}
+.header__body {
+  display: flex;
+  column-gap: 15px;
+  align-items: center;
+}
+
+.header__button {
+  font-family: "Inter UI";
+  font-size: 18px;
+  line-height: 28px;
+  color: rgba(0, 0, 0, 0.85);
+  background-color: inherit;
+  border: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.header__name {
+  font-family: "Inter UI";
+  font-size: 18px;
+  line-height: 28px;
+  color: rgba(0, 0, 0, 0.85);
+  background-color: inherit;
+  border: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header__btn-sign-up {
+  border: 1px solid #52c41a;
+  border-radius: 5px;
+  color: #52c41a;
+  padding: 10px 12px;
+}
+
+.header__btn-create {
+  border: 1px solid #52c41a;
+  font-size: 14px;
+  line-height: 22px;
+  border-radius: 5px;
+  color: #52c41a;
+  height: 25px;
+  padding: 2px 5px;
+}
+@media (max-width: 768px) {
+  .header__btn-create  {
+  padding: 20px 5px;
+  }
+}
+.header__image {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background-color: aquamarine;
+  cursor: pointer;
+}
+.header__btn-log-out {
+  border: 1px solid rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+  padding: 0 12px;
+}
