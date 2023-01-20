@@ -55,6 +55,7 @@
   line-height: 28px;
   text-align: center;
   color: #262626;
+  margin: 0;
 }
 input[type="checkbox"] {
   margin: 0;

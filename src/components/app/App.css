@@ -1,13 +1,6 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-li {
-  list-style: none;
-}
 body {
   background: #f0f2f5;
+  margin: 0;
 }
 a {
   text-decoration: none;
@@ -17,6 +10,7 @@ button {
   border: none;
   cursor: pointer;
   text-align: left;
+  padding: 0;
 }
 .main {
   margin: 0 auto;
