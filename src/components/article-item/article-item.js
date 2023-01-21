@@ -110,9 +110,7 @@ function ArticleItem(props) {
             >
               {title}
             </button>
-            <button type="button" className={classNameLike} disabled={favorited} onClick={clickOnLike}>
-              {" "}
-            </button>
+            <button type="button" className={classNameLike} onClick={clickOnLike}></button>
             <div className={classes["article__like-count"]}>{like.count}</div>
           </div>
           <ul className={classes["article__tag-list"]}>{tagsList}</ul>
