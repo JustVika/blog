@@ -4,24 +4,25 @@ import { bindActionCreators } from "redux";
 import { Link } from "react-router-dom";
 
 import { changeIsLogin, logOut } from "../../actions";
-import "./header.css";
+
+import classes from "./header.module.scss";
 
 function Header(props) {
   const { isLogin, user } = props;
   const dispatch = useDispatch();
   const content = isLogin ? (
     <>
-      <Link to="/new-article" className="header__button  header__btn-create">
+      <Link to="/new-article" className={`${classes.header__button}  ${classes["header__btn-create"]}`}>
         Create article
       </Link>
-      <div className="header__name">{user.username}</div>
+      <div className={classes.header__name}>{user.username}</div>
       <Link to="/profile">
-        <img src={user.image} alt="Avatar" className="header__image" />
+        <img src={user.image} alt="Avatar" className={classes.header__image} />
       </Link>
       <Link to="/articles">
         <button
           type="button"
-          className="header__button header__btn-log-out"
+          className={`${classes.header__button} ${classes["header__btn-log-out"]}`}
           onClick={() => {
             dispatch(logOut());
           }}
@@ -32,20 +33,20 @@ function Header(props) {
     </>
   ) : (
     <>
-      <Link to="/sign-in" className="header__button">
+      <Link to="/sign-in" className={classes.header__button}>
         Sign In
       </Link>
-      <Link to="/sign-up" className="header__button  header__btn-sign-up">
+      <Link to="/sign-up" className={`${classes.header__button}  ${classes["header__btn-sign-up"]}`}>
         Sign Up
       </Link>
     </>
   );
   return (
-    <header className="header header__container">
+    <header className={`${classes.header} ${classes.header__container}`}>
       <Link to="/articles">
-        <h2 className="header__title">Realworld Blog</h2>
+        <h2 className={classes.header__title}>Realworld Blog</h2>
       </Link>
-      <div className="header__body">{content}</div>
+      <div className={classes.header__body}>{content}</div>
     </header>
   );
 }

@@ -11,6 +11,7 @@ function EditProfilePage() {
   const onSubmit = (data) => {
     const { email, password, image } = data;
     const newData = { ...data };
+
     localStorage.setItem("user", JSON.stringify({ email, password }));
     if (!image.trimStart()) {
       delete newData.image;

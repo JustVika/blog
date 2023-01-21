@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 
-import "./up-change-form.css";
+import classes from "./up-change-form.module.scss";
 
 function UpChangeForm(props) {
   const {
@@ -15,13 +15,13 @@ function UpChangeForm(props) {
   const { onSubmit, buttonName } = props;
   const isCreateForm = buttonName === "Create";
   const title = buttonName === "Create" ? "Create new account" : "Edit Profile";
-  const labelPassword = isCreateForm ? "Password" : "New password";
+  const labelPassword = isCreateForm ? "Repeat password" : "New password";
   const { userError, user } = useSelector((state) => state);
-  const inputClassName = "form__input";
+  const inputClassName = classes.form__input;
   return (
-    <form className="form" onSubmit={handleSubmit(onSubmit)}>
-      <h3 className="form__title">{title}</h3>
-      <label className="form__label">
+    <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+      <h3 className={classes.form__title}>{title}</h3>
+      <label className={classes.form__label}>
         Username
         <input
           type="text"
@@ -30,15 +30,21 @@ function UpChangeForm(props) {
             maxLength: 20,
             required: true,
           })}
-          className={errors.username ? `${inputClassName} form__input--red` : `${inputClassName} `}
+          className={
+            errors.username || userError.username
+              ? `${inputClassName} ${classes["form__input--red"]}`
+              : `${inputClassName} `
+          }
           placeholder="Username"
           defaultValue={user.username}
         />
-        {errors.defaultValue && <p className="form__error">username должен быть от 3 до 20 символов (включительно)</p>}
+        {errors.username && (
+          <p className={classes.form__error}>username должен быть от 3 до 20 символов (включительно)</p>
+        )}
         {/* Проверяем, если нет пользовательских ошибок, то выводим ошибки с сервера при наличии */}
-        {userError.username && !errors.username && <p className="form__error">This username is already use</p>}
+        {userError.username && !errors.username && <p className={classes.form__error}>This username is already use</p>}
       </label>
-      <label className="form__label">
+      <label className={classes.form__label}>
         Email address
         <input
           {...register("email", {
@@ -50,15 +56,17 @@ function UpChangeForm(props) {
           })}
           placeholder="Email address"
           type="text"
-          className={errors.email ? `${inputClassName} form__input--red` : `${inputClassName} `}
+          className={
+            errors.email || userError.email ? `${inputClassName} ${classes["form__input--red"]}` : `${inputClassName} `
+          }
           defaultValue={user.email ? user.email : ""}
         />
-        {errors.email && <p className="form__error">email должен быть корректным почтовым адресом</p>}
+        {errors.email && <p className={classes.form__error}>email должен быть корректным почтовым адресом</p>}
         {/* Проверяем, если нет пользовательских ошибок, то выводим ошибки с сервера при наличии */}
-        {userError.email && !errors.email && <p className="form__error">This email is already use</p>}
+        {userError.email && !errors.email && <p className={classes.form__error}>This email is already use</p>}
       </label>
-      <label className="form__label">
-        {labelPassword}
+      <label className={classes.form__label}>
+        Password
         <input
           {...register("password", {
             required: true,
@@ -67,13 +75,15 @@ function UpChangeForm(props) {
           })}
           placeholder="Password"
           type="password"
-          className={errors.password ? `${inputClassName} form__input--red` : `${inputClassName} `}
+          className={errors.password ? `${inputClassName} ${classes["form__input--red"]}` : `${inputClassName} `}
         />
-        {errors.password && <p className="form__error">password должен быть от 6 до 40 символов (включительно)</p>}
+        {errors.password && (
+          <p className={classes.form__error}>password должен быть от 6 до 40 символов (включительно)</p>
+        )}
       </label>
       {isCreateForm ? (
         <>
-          <label className="form__label">
+          <label className={classes.form__label}>
             {labelPassword}
             <input
               {...register("password-repeat", {
@@ -82,25 +92,29 @@ function UpChangeForm(props) {
               })}
               placeholder="Repeat password"
               type="password"
-              className={errors["password-repeat"] ? `${inputClassName} form__input--red` : `${inputClassName} `}
+              className={
+                errors["password-repeat"] ? `${inputClassName} ${classes["form__input--red"]}` : `${inputClassName} `
+              }
             />
-            {errors["password-repeat"] && <p className="form__error">password и repeat password должны совпадать</p>}
+            {errors["password-repeat"] && (
+              <p className={classes.form__error}>password и repeat password должны совпадать</p>
+            )}
           </label>
-          <label className="form__label form__label--checkbox">
+          <label className={`${classes.form__label} ${classes["form__label--checkbox"]}`}>
             <input
               {...register("checkbox", {
                 required: "Please repeat your password!",
               })}
               placeholder="Email address"
               type="checkbox"
-              className={errors.password ? `${inputClassName} form__input--red` : `${inputClassName} `}
+              className={errors.password ? `${inputClassName}  ${classes["form__input--red"]}` : `${inputClassName} `}
             />
             I agree to the processing of my personal information
           </label>
-          {errors.checkbox && <p className="form__error"> Пожалуйста поставьте галочку</p>}
+          {errors.checkbox && <p className={classes.form__error}> Пожалуйста поставьте галочку</p>}
         </>
       ) : (
-        <label className="form__label">
+        <label className={classes.form__label}>
           Avatar image (url)
           <input
             {...register("image", {
@@ -110,13 +124,13 @@ function UpChangeForm(props) {
             })}
             placeholder="Avatar url"
             type="text"
-            className={errors.email ? `${inputClassName} form__input--red` : `${inputClassName} `}
+            className={errors.image ? `${inputClassName} ${classes["form__input--red"]}` : `${inputClassName} `}
           />
-          {errors.image && <p className="form__error">avtar url должен быть корректным</p>}
+          {errors.image && <p className={classes.form__error}>avtar url должен быть корректным</p>}
         </label>
       )}
 
-      <input type="submit" className="form__button" value={buttonName} />
+      <input type="submit" className={classes.form__button} value={buttonName} />
     </form>
   );
 }

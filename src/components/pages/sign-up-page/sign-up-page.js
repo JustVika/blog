@@ -4,8 +4,9 @@ import { Redirect, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import { validationFormRegistration, changeUserError } from "../../../actions";
-import "./sign-up-page.css";
 import UpChangeForm from "../../up-change-form/up-change-form";
+
+import classes from "./sign-up-page.module.scss";
 
 function SignUpPage() {
   const dispatch = useDispatch();
@@ -27,12 +28,12 @@ function SignUpPage() {
   }
 
   return (
-    <div className="sign-up">
+    <div className={classes["sign-up"]}>
       <UpChangeForm onSubmit={onSubmit} buttonName="Create" />
-      <p className="sign-up__transition-text">
+      <p className={classes["sign-up__transition-text"]}>
         Already have an account?{" "}
         <Link to="/sign-in">
-          <span className="sign-up__link">Sign In.</span>
+          <span className={classes["sign-up__link"]}>Sign In.</span>
         </Link>
       </p>
     </div>

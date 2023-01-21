@@ -58,11 +58,12 @@ const changeCurrentAricle = (article) => {
 };
 
 const getArticles = () => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     dispatch(changeLoading(true));
     dispatch(changeError(false));
+    const { currentPage } = getState();
     try {
-      const articles = await newServer.getArticles();
+      const articles = await newServer.getArticles(currentPage);
       await dispatch(articlesUpdate(articles.articles));
       await dispatch(changeArticleCount(articles.articlesCount));
       dispatch(changeLoading(false));
@@ -139,8 +140,9 @@ const validationFormEdit = (body) => {
   return async (dispatch) => {
     try {
       const data = await newServer.userEdit(body);
-
+      console.log(data.errors);
       if (data.errors) {
+        console.log("000000");
         dispatch(changeUserError({ ...data.errors }));
         return false;
       }

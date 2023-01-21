@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Spin, Alert } from "antd";
+import { Alert } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { nanoid } from "nanoid";
 
-import { createArticle, getOneArticle } from "../../actions";
+import { createArticle } from "../../actions";
 
-import "./article-form.css";
+import classes from "./article-form.module.scss";
 
 function ArticleForm(props) {
   const {
@@ -19,7 +19,7 @@ function ArticleForm(props) {
   const [tags, setTags] = useState([{ tag: nanoid(), label: "" }]);
   const [complited, setComplited] = useState(false);
 
-  const { article, load, error } = useSelector((state) => state);
+  const { article, load, error, isLogin } = useSelector((state) => state);
   const { nameForm, changeComplited } = props;
   const isEdit = nameForm === "edit";
   const dispatch = useDispatch();
@@ -32,7 +32,9 @@ function ArticleForm(props) {
       setTags(tagArray);
     }
   }, []);
-
+  if (!isLogin) {
+    return <Redirect to="/articles" />;
+  }
   const onSubmit = (data) => {
     const tagList = tags.reduce((accumulator, element) => {
       if (element.label.trimStart()) {
@@ -76,11 +78,11 @@ function ArticleForm(props) {
     setTags((tagsArray) => [...tagsArray, { tag: nanoid(), label: "" }]);
   };
 
-  const inputClassName = "form__input";
+  const inputClassName = classes.form__input;
   const tagsElement = tags.map((elem, index) => {
     const isEndTag = tags.length - 1 === index;
     return (
-      <div className="form__tag-wrapper" key={elem.tag}>
+      <div className={classes["form__tag-wrapper"]} key={elem.tag}>
         <input
           type="text"
           value={elem.label}
@@ -89,11 +91,11 @@ function ArticleForm(props) {
           placeholder="Title"
         />
 
-        <button type="button" className="form__tag-delet" onClick={() => deleteTag(elem.tag)}>
+        <button type="button" className={classes["form__tag-delet"]} onClick={() => deleteTag(elem.tag)}>
           Delet
         </button>
         {isEndTag ? (
-          <button onClick={() => addTag(elem)} type="button" className="form__tag-add">
+          <button onClick={() => addTag(elem)} type="button" className={classes["form__tag-add"]}>
             Add tag
           </button>
         ) : null}
@@ -101,10 +103,10 @@ function ArticleForm(props) {
     );
   });
   return (
-    <div className="article-form">
-      <form className="form" onSubmit={handleSubmit(onSubmit)}>
-        <h2 className="form__title">{`${nameForm === "new" ? "Create new" : "Edit"} article`}</h2>
-        <label className="form__label  form__label--article">
+    <div className={classes["article-form"]}>
+      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+        <h2 className={classes.form__title}>{`${nameForm === "new" ? "Create new" : "Edit"} article`}</h2>
+        <label className={`${classes.form__label}  ${classes["form__label--article"]}`}>
           Title
           <input
             type="text"
@@ -115,12 +117,12 @@ function ArticleForm(props) {
               },
             })}
             defaultValue={isEdit ? article.title : ""}
-            className={errors.title ? `${inputClassName} form__input--red` : `${inputClassName} `}
+            className={errors.title ? `${inputClassName} ${classes["form__input--red"]}` : `${inputClassName} `}
             placeholder="Title"
           />
-          {errors.title && <p className="form__error">Это поле должно содержать минимум один символ</p>}
+          {errors.title && <p className={classes.form__error}>Это поле должно содержать минимум один символ</p>}
         </label>
-        <label className="form__label  form__label--article">
+        <label className={`${classes.form__label}  ${classes["form__label--article"]}`}>
           Short description
           <input
             type="text"
@@ -131,12 +133,12 @@ function ArticleForm(props) {
               },
             })}
             defaultValue={isEdit ? article.description : ""}
-            className={errors.description ? `${inputClassName} form__input--red` : `${inputClassName} `}
+            className={errors.description ? `${inputClassName} ${classes["form__input--red"]}` : `${inputClassName} `}
             placeholder="Short description"
           />
           {errors.description && <p className="form__error">Это поле должно содержать минимум один символ</p>}
         </label>
-        <label className="form__label  form__label--article">
+        <label className={`${classes.form__label}  ${classes["form__label--article"]}`}>
           Text
           <textarea
             {...register("body", {
@@ -147,17 +149,19 @@ function ArticleForm(props) {
             })}
             defaultValue={isEdit ? article.body : ""}
             className={
-              errors.body ? `${inputClassName} form__input--red form__textarea` : `${inputClassName} form__textarea`
+              errors.body
+                ? `${inputClassName} ${classes["form__input--red"]} ${classes.form__textarea}`
+                : `${inputClassName} ${classes.form__textarea}`
             }
             placeholder="Text"
           />
-          {errors.body && <p className="form__error">Это поле должно содержать минимум один символ</p>}
+          {errors.body && <p className={classes.form__error}>Это поле должно содержать минимум один символ</p>}
         </label>
-        <label className="form__label  form__label--article">
+        <label className={`${classes.form__label}  ${classes["form__label--article"]}`}>
           Tag
           {tagsElement}
         </label>
-        <input type="submit" className="form__button" value="Send" />
+        <input type="submit" className={classes.form__button} value="Send" />
       </form>
     </div>
   );

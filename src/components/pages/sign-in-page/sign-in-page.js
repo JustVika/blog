@@ -5,7 +5,10 @@ import { useForm } from "react-hook-form";
 
 import { validationFormLogin, changeUserError } from "../../../actions";
 
+import classes from "./sign-in-page.module.scss";
+
 function SignInPage() {
+  console.log(classes);
   const {
     register,
     handleSubmit,
@@ -26,12 +29,12 @@ function SignInPage() {
   if (isLogin) {
     return <Redirect to="/articles" />;
   }
-  const inputClassName = "form__input";
+  const inputClassName = classes.form__input;
   return (
-    <div className="sign-up">
-      <form className="form" onSubmit={handleSubmit(onSubmit)}>
-        <h3 className="form__title">Sign In</h3>
-        <label className="form__label">
+    <div className={classes["sign-in"]}>
+      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+        <h3 className={classes.form__title}>Sign In</h3>
+        <label className={classes.form__label}>
           Email address
           <input
             {...register("email", {
@@ -42,22 +45,26 @@ function SignInPage() {
             })}
             placeholder="Email address"
             type="text"
-            className={userError["email or password"] ? `${inputClassName} form__input--red` : `${inputClassName} `}
+            className={
+              userError["email or password"] ? `${inputClassName} ${classes["form__input--red"]}` : `${inputClassName} `
+            }
           />
-          {errors.email && <p className="form__error">email должен быть корректным почтовым адресом</p>}
+          {errors.email && <p className={classes.form__error}>email должен быть корректным почтовым адресом</p>}
         </label>
-        <label className="form__label">
+        <label className={classes.form__label}>
           Password
           <input
             {...register("password")}
             placeholder="Password"
             type="password"
-            className={userError["email or password"] ? `${inputClassName} form__input--red` : `${inputClassName} `}
+            className={
+              userError["email or password"] ? `${inputClassName} ${classes["form__input--red"]}` : `${inputClassName} `
+            }
           />
-          {userError["email or password"] && <p className="form__error">Email или пароль введены не верно</p>}
+          {userError["email or password"] && <p className={classes.form__error}>Email или пароль введены не верно</p>}
         </label>
 
-        <input type="submit" className="form__button" value="Login" />
+        <input type="submit" className={classes.form__button} value="Login" />
       </form>
       <p className="sign-up__transition-text">
         Already have an account?{" "}

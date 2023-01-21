@@ -7,7 +7,7 @@ import { Popconfirm, message } from "antd";
 
 import { changeLike, deleteArticle } from "../../actions";
 
-import "./article-item.css";
+import classes from "./article-item.module.scss";
 
 function ArticleItem(props) {
   const {
@@ -56,13 +56,15 @@ function ArticleItem(props) {
   const tagsList = tagList.map((tag) => {
     const key = `${tag}${Math.random() * 1000}`;
     return (
-      <li key={key} className="article__tag-item">
+      <li key={key} className={classes["article__tag-item"]}>
         {tag}
       </li>
     );
   });
 
-  const classNameLike = like.like ? "article__like article__like--like-on" : "article__like";
+  const classNameLike = like.like
+    ? `${classes.article__like} ${classes["article__like--like-on"]}`
+    : classes.article__like;
 
   const date = format(new Date(createdAt), "MMMM d',' yyyy");
 
@@ -70,7 +72,7 @@ function ArticleItem(props) {
 
   const isLoginSegment =
     user.username === username && singleArticle ? (
-      <div className="article__author-login-segment">
+      <div className={classes["article__author-login-segment"]}>
         <Popconfirm
           title="Delete the task"
           description="Are you sure to delete this task?"
@@ -79,7 +81,7 @@ function ArticleItem(props) {
           okText="Yes"
           cancelText="No"
         >
-          <button type="button" className="article__delete">
+          <button type="button" className={classes.article__delete}>
             Delete
           </button>
         </Popconfirm>
@@ -88,48 +90,48 @@ function ArticleItem(props) {
           onClick={() => {
             history.push(`/articles/${slug}/edit`);
           }}
-          className="article__edit"
+          className={classes.article__edit}
         >
           Edit
         </button>
       </div>
     ) : null;
   return (
-    <article className="article">
-      <div className="article__wrap">
-        <div className="article__body">
-          <div className="article__title">
+    <article className={classes.article}>
+      <div className={classes.article__wrapper}>
+        <div className={classes.article__body}>
+          <div className={classes.article__title}>
             <button
               type="button"
               onClick={() => {
                 history.push(`/articles/${slug}`);
               }}
-              className="article__title-text"
+              className={classes["article__title-text"]}
             >
               {title}
             </button>
             <button type="button" className={classNameLike} disabled={favorited} onClick={clickOnLike}>
               {" "}
             </button>
-            <div className="article__like-count">{like.count}</div>
+            <div className={classes["article__like-count"]}>{like.count}</div>
           </div>
-          <ul className="article__tag-list">{tagsList}</ul>
-          <p className="article__description">{description}</p>
+          <ul className={classes["article__tag-list"]}>{tagsList}</ul>
+          <p className={classes.article__description}>{description}</p>
         </div>
-        <div className="article__author-body">
-          <div className="article__author">
-            <div className="article__author-data">
-              <div className="article__author-name">{username}</div>
-              <div className="article__author-date">{date}</div>
+        <div className={classes.article__author}>
+          <div className={classes["article__author-body"]}>
+            <div className={classes["article__author-data"]}>
+              <div className={classes["article__author-name"]}>{username}</div>
+              <div className={classes["article__author-date"]}>{date}</div>
             </div>
-            <img className="article__author-image" src={image} alt="avatar" />
+            <img className={classes["article__author-image"]} src={image} alt="avatar" />
           </div>
           {isLoginSegment}
         </div>
       </div>
 
       {singleArticle ? (
-        <div className="article__content">
+        <div className={classes.article__content}>
           <ReactMarkdown>{body}</ReactMarkdown>
         </div>
       ) : null}
