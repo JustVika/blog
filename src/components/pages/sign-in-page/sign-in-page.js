@@ -8,7 +8,6 @@ import { validationFormLogin, changeUserError } from "../../../actions";
 import classes from "./sign-in-page.module.scss";
 
 function SignInPage() {
-  console.log(classes);
   const {
     register,
     handleSubmit,

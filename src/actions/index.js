@@ -140,9 +140,7 @@ const validationFormEdit = (body) => {
   return async (dispatch) => {
     try {
       const data = await newServer.userEdit(body);
-      console.log(data.errors);
       if (data.errors) {
-        console.log("000000");
         dispatch(changeUserError({ ...data.errors }));
         return false;
       }
@@ -165,8 +163,10 @@ const logOut = () => {
   return (dispatch) => {
     dispatch(changeIsLogin(false));
     dispatch(logInUser({}));
+
     localStorage.removeItem("user");
     newServer.token = "";
+    dispatch(getArticles());
   };
 };
 
