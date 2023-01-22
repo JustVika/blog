@@ -1,6 +1,9 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { Redirect } from "react-router-dom";
+
+import { validationFormEdit, changeUserError } from "../../actions/index";
 
 import classes from "./up-change-form.module.scss";
 
@@ -11,12 +14,32 @@ function UpChangeForm(props) {
     getValues,
     formState: { errors },
   } = useForm();
-
-  const { onSubmit, buttonName } = props;
+  const dispatch = useDispatch();
+  const { buttonName } = props;
   const isCreateForm = buttonName === "Create";
   const title = buttonName === "Create" ? "Create new account" : "Edit Profile";
   const labelPassword = isCreateForm ? "Repeat password" : "New password";
-  const { userError, user } = useSelector((state) => state);
+  const { userError, user, isLogin } = useSelector((state) => state);
+
+  const onSubmit = (data) => {
+    console.log("submit");
+
+    dispatch(validationFormEdit(data));
+  };
+  useEffect(() => {
+    return () => {
+      console.log("delete");
+      dispatch(changeUserError({}));
+    };
+  }, []);
+
+  if (!isLogin) {
+    return <Redirect to="/articles" />;
+  }
+  if (userError?.notErrors) {
+    return <Redirect to="/articles" />;
+  }
+
   const inputClassName = classes.form__input;
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
@@ -124,6 +147,7 @@ function UpChangeForm(props) {
             })}
             placeholder="Avatar url"
             type="text"
+            defaultValue={user.image}
             className={errors.image ? `${inputClassName} ${classes["form__input--red"]}` : `${inputClassName} `}
           />
           {errors.image && <p className={classes.form__error}>avtar url должен быть корректным</p>}

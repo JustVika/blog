@@ -140,18 +140,16 @@ const validationFormEdit = (body) => {
   return async (dispatch) => {
     try {
       const data = await newServer.userEdit(body);
+      console.log(data);
       if (data.errors) {
         dispatch(changeUserError({ ...data.errors }));
         return false;
       }
       const {
-        user: {
-          username,
-          image, //= "https://static.productionready.io/images/smiley-cyrus.jpg",
-          email,
-        },
+        user: { username, image = "https://static.productionready.io/images/smiley-cyrus.jpg", email },
       } = data;
       dispatch(logInUser({ username, image, email }));
+      dispatch(changeUserError({ notErrors: true }));
       return true;
     } catch (err) {
       return err;
