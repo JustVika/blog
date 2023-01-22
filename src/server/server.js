@@ -45,7 +45,7 @@ class Server {
     }
   };
 
-  userLogin = async (email, password) => {
+  userLogin = async ({ email, password }) => {
     const body = {
       user: {
         email,

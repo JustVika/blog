@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Redirect, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-import { validationFormLogin, changeUserError } from "../../../actions";
+import { changeUserError, validationForm } from "../../../actions";
 
 import classes from "./sign-in-page.module.scss";
 
@@ -17,7 +17,7 @@ function SignInPage() {
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    dispatch(validationFormLogin(data));
+    dispatch(validationForm(data, "login"));
   };
 
   const { isLogin, userError } = useSelector((state) => state);

@@ -95,64 +95,30 @@ const logInUser = (user) => {
     payload: newUser,
   };
 };
-
-const validateTrue = (data) => {
+const validationForm = (user, name) => {
   return async (dispatch) => {
-    if (newServer.token) {
-      dispatch(changeIsLogin(true));
-      dispatch(changeUserError({}));
-      const {
-        user: { username, email, image = "https://static.productionready.io/images/smiley-cyrus.jpg" },
-      } = data;
-
-      dispatch(logInUser({ username, image, email }));
-    } else {
+    let data;
+    if (name === "edit") {
+      data = await newServer.userEdit(user);
+    }
+    if (name === "create") {
+      data = await newServer.userRegistration(user);
+      if (newServer.token) dispatch(changeIsLogin(true));
+    }
+    if (name === "login") {
+      data = await newServer.userLogin(user);
+      if (newServer.token) dispatch(changeIsLogin(true));
+    }
+    console.log(data);
+    if (data.errors) {
       dispatch(changeUserError({ ...data.errors }));
+      return;
     }
-  };
-};
-
-const validationFormRegistration = (user) => {
-  return async (dispatch) => {
-    try {
-      const data = await newServer.userRegistration(user);
-      dispatch(validateTrue(data));
-      return true;
-    } catch (err) {
-      return err;
-    }
-  };
-};
-
-const validationFormLogin = ({ email, password }) => {
-  return async (dispatch) => {
-    try {
-      const data = await newServer.userLogin(email, password);
-      dispatch(validateTrue(data));
-      return true;
-    } catch (err) {
-      return err;
-    }
-  };
-};
-
-const validationFormEdit = (body) => {
-  return async (dispatch) => {
-    try {
-      const data = await newServer.userEdit(body);
-      if (data.errors) {
-        dispatch(changeUserError({ ...data.errors }));
-        return false;
-      }
-      const {
-        user: { username, image = "https://static.productionready.io/images/smiley-cyrus.jpg", email },
-      } = data;
-      dispatch(logInUser({ username, image, email }));
-      dispatch(changeUserError({ notErrors: true }));
-      return true;
-    } catch (err) {
-      return err;
-    }
+    const {
+      user: { username, image = "https://static.productionready.io/images/smiley-cyrus.jpg", email },
+    } = data;
+    dispatch(logInUser({ username, image, email }));
+    dispatch(changeUserError({ notErrors: true }));
   };
 };
 
@@ -210,14 +176,12 @@ const deleteArticle = (slug) => {
 export {
   getArticles,
   newPage,
-  validationFormRegistration,
   changeIsLogin,
   changeUserError,
-  validationFormLogin,
   logOut,
-  validationFormEdit,
   getOneArticle,
   changeLike,
   createArticle,
   deleteArticle,
+  validationForm,
 };

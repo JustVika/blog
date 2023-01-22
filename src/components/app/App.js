@@ -3,7 +3,7 @@ import { connect, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import { validationFormLogin } from "../../actions";
+import { validationForm } from "../../actions";
 import "./App.css";
 import Header from "../header/header";
 import MainPage from "../pages/main-page";
@@ -19,7 +19,7 @@ function App(props) {
   useEffect(() => {
     if (localStorage.getItem("user")) {
       const defaultUser = JSON.parse(localStorage.getItem("user"));
-      dispatch(validationFormLogin(defaultUser));
+      dispatch(validationForm(defaultUser, "login"));
     }
   }, []);
 
