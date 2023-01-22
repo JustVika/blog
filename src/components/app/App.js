@@ -27,7 +27,6 @@ function App(props) {
     <div className="App">
       <Router>
         <Header />
-        <button></button>
         <main className="main">
           <Switch>
             <Route
