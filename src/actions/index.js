@@ -109,7 +109,6 @@ const validationForm = (user, name) => {
       data = await newServer.userLogin(user);
       if (newServer.token) dispatch(changeIsLogin(true));
     }
-    console.log(data);
     if (data.errors) {
       dispatch(changeUserError({ ...data.errors }));
       return;
@@ -167,10 +166,8 @@ const createArticle = ({ body, isEdit, slug }) => {
   };
 };
 
-const deleteArticle = (slug) => {
-  return async () => {
-    await newServer.deleteArticle(slug);
-  };
+const deleteArticle = async (slug) => {
+  await newServer.deleteArticle(slug);
 };
 
 export {
