@@ -37,7 +37,6 @@ function UpChangeForm(props) {
   if (userError?.notErrors) {
     return <Redirect to="/articles" />;
   }
-  console.log(userError);
   const inputClassName = classes.form__input;
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>

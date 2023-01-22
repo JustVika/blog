@@ -1,11 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
 
 import UpChangeForm from "../../up-change-form/up-change-form";
 
 import classes from "./sign-up-page.module.scss";
 
 function SignUpPage() {
+  const { isLogin } = useSelector((state) => state);
+  if (isLogin) {
+    return <Redirect to="/articles" />;
+  }
   return (
     <div className={classes["sign-up"]}>
       <UpChangeForm buttonName="Create" />
