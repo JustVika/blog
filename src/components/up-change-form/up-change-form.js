@@ -22,20 +22,14 @@ function UpChangeForm(props) {
   const { userError, user, isLogin } = useSelector((state) => state);
 
   const onSubmit = (data) => {
-    console.log("submit");
-
     dispatch(validationFormEdit(data));
   };
   useEffect(() => {
     return () => {
-      console.log("delete");
       dispatch(changeUserError({}));
     };
   }, []);
 
-  if (!isLogin) {
-    return <Redirect to="/articles" />;
-  }
   if (userError?.notErrors) {
     return <Redirect to="/articles" />;
   }

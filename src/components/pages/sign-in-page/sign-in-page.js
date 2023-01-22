@@ -64,13 +64,13 @@ function SignInPage() {
         </label>
 
         <input type="submit" className={classes.form__button} value="Login" />
+        <p className={classes["sign-in__transition-text"]}>
+          Don’t have an account?
+          <Link to="/sign-up">
+            <span className={classes["sign-in__link"]}>Sign Up.</span>
+          </Link>
+        </p>
       </form>
-      <p className="sign-up__transition-text">
-        Already have an account?{" "}
-        <Link to="/sign-up">
-          <span className="sign-up__link">Sign Up.</span>
-        </Link>
-      </p>
     </div>
   );
 }
