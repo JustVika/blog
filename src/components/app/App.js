@@ -19,7 +19,7 @@ function App(props) {
   useEffect(() => {
     if (localStorage.getItem("user")) {
       const defaultUser = JSON.parse(localStorage.getItem("user"));
-      dispatch(validationForm(defaultUser, "login"));
+      dispatch(validationForm(defaultUser, "login", true));
     }
   }, []);
   return (

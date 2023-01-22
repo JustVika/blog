@@ -95,7 +95,7 @@ const logInUser = (user) => {
     payload: newUser,
   };
 };
-const validationForm = (user, name) => {
+const validationForm = (user, name, isFirts) => {
   return async (dispatch) => {
     let data;
     if (name === "edit") {
@@ -110,7 +110,7 @@ const validationForm = (user, name) => {
       if (newServer.token) dispatch(changeIsLogin(true));
     }
     if (data.errors) {
-      dispatch(changeUserError({ ...data.errors }));
+      isFirts ? null : dispatch(changeUserError({ ...data.errors }));
       return;
     }
     const {
