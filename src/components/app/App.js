@@ -3,8 +3,8 @@ import { connect, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import { validationForm } from "../../actions";
-import "./App.css";
+import { validationForm, changeUserError } from "../../actions";
+import "./App.scss";
 import Header from "../header/header";
 import MainPage from "../pages/main-page";
 import SignUpPage from "../pages/sign-up-page/sign-up-page";
@@ -22,7 +22,6 @@ function App(props) {
       dispatch(validationForm(defaultUser, "login"));
     }
   }, []);
-
   return (
     <div className="App">
       <Router>

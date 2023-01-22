@@ -8,11 +8,7 @@ import { changeUserError, validationForm } from "../../../actions";
 import classes from "./sign-in-page.module.scss";
 
 function SignInPage() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const dispatch = useDispatch();
 
@@ -22,6 +18,7 @@ function SignInPage() {
 
   const { isLogin, userError } = useSelector((state) => state);
   useEffect(() => {
+    dispatch(changeUserError({}));
     return () => {
       dispatch(changeUserError({}));
     };
