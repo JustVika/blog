@@ -38,6 +38,7 @@ function SignInPage() {
           Email address
           <input
             {...register("email", {
+              required: true,
               pattern: {
                 value:
                   /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
@@ -49,12 +50,13 @@ function SignInPage() {
               userError["email or password"] ? `${inputClassName} ${classes["form__input--red"]}` : `${inputClassName} `
             }
           />
-          {errors.email && <p className={classes.form__error}>email должен быть корректным почтовым адресом</p>}
         </label>
         <label className={classes.form__label}>
           Password
           <input
-            {...register("password")}
+            {...register("password", {
+              required: true,
+            })}
             placeholder="Password"
             type="password"
             className={
