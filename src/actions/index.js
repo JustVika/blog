@@ -140,7 +140,6 @@ const validationFormEdit = (body) => {
   return async (dispatch) => {
     try {
       const data = await newServer.userEdit(body);
-      console.log(data);
       if (data.errors) {
         dispatch(changeUserError({ ...data.errors }));
         return false;

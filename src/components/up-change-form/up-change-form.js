@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Redirect } from "react-router-dom";
 
-import { validationFormEdit, changeUserError } from "../../actions/index";
+import { validationFormEdit, changeUserError, validationFormRegistration } from "../../actions/index";
 
 import classes from "./up-change-form.module.scss";
 
@@ -22,7 +22,11 @@ function UpChangeForm(props) {
   const { userError, user, isLogin } = useSelector((state) => state);
 
   const onSubmit = (data) => {
-    dispatch(validationFormEdit(data));
+    if (buttonName === "Create") {
+      dispatch(validationFormRegistration(data));
+    } else {
+      dispatch(validationFormEdit(data));
+    }
   };
   useEffect(() => {
     return () => {
@@ -33,7 +37,7 @@ function UpChangeForm(props) {
   if (userError?.notErrors) {
     return <Redirect to="/articles" />;
   }
-
+  console.log(userError);
   const inputClassName = classes.form__input;
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
