@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import format from "date-fns/format";
 import ReactMarkdown from "react-markdown";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { useHistory, Link, Redirect } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Popconfirm, message } from "antd";
 
 import { changeLike, deleteArticle } from "../../actions";
@@ -45,7 +45,7 @@ function ArticleItem(props) {
 
   const confirm = () => {
     message.success("Article is deleted...");
-    dispatch(deleteArticle(slug));
+    deleteArticle(slug);
     changeComplited(true);
   };
 
@@ -124,7 +124,15 @@ function ArticleItem(props) {
               <div className={classes["article__author-name"]}>{username}</div>
               <div className={classes["article__author-date"]}>{date}</div>
             </div>
-            <img className={classes["article__author-image"]} src={image} alt="avatar" />
+            <img
+              className={classes["article__author-image"]}
+              src={image}
+              alt="avatar"
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null;
+                currentTarget.src = "https://static.productionready.io/images/smiley-cyrus.jpg";
+              }}
+            />
           </div>
           {isLoginSegment}
         </div>

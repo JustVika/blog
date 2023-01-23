@@ -3,7 +3,7 @@ import { connect, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import { validationForm, changeUserError } from "../../actions";
+import { validationForm } from "../../actions";
 import "./App.scss";
 import Header from "../header/header";
 import MainPage from "../pages/main-page";
@@ -13,8 +13,17 @@ import SignInPage from "../pages/sign-in-page/sign-in-page";
 import EditProfilePage from "../pages/edit-profile-page/edit-profile-page";
 import ArticleForm from "../article-form/article-form";
 import EditArticlePage from "../pages/edit-article-page/edit-article-page";
+import {
+  editArticlePath,
+  singleArticlePath,
+  mainPath,
+  signUpPath,
+  signInPath,
+  profilePath,
+  newArticlePath,
+} from "../../const-path-page";
 
-function App(props) {
+function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     if (localStorage.getItem("user")) {
@@ -29,32 +38,32 @@ function App(props) {
         <main className="main">
           <Switch>
             <Route
-              path="/articles/:slug/edit"
+              path={editArticlePath}
               render={({ match }) => {
                 const { slug } = match.params;
                 return <EditArticlePage slug={slug} nameForm="edit" />;
               }}
             />
             <Route
-              path="/articles/:slug"
+              path={singleArticlePath}
               exact
               render={({ match }) => {
                 const { slug } = match.params;
                 return <SingleArticlePage slug={slug} />;
               }}
             />
-            <Route path="/articles" exact component={MainPage} />
-            <Route path="/sign-up" component={SignUpPage} />
-            <Route path="/sign-in" component={SignInPage} />
-            <Route path="/profile" component={EditProfilePage} />
+            <Route path={mainPath} exact component={MainPage} />
+            <Route path={signUpPath} component={SignUpPage} />
+            <Route path={signInPath} component={SignInPage} />
+            <Route path={profilePath} component={EditProfilePage} />
             <Route
-              path="/new-article"
+              path={newArticlePath}
               render={() => {
                 return <ArticleForm nameForm="new" />;
               }}
             />
 
-            <Route path="" component={MainPage} />
+            <Route path="/" exact component={MainPage} />
           </Switch>
         </main>
       </Router>

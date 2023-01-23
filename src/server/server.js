@@ -4,7 +4,7 @@ class Server {
   url = "https://blog.kata.academy/api";
 
   getArticles = async (page = 1) => {
-    const res = await fetch(`https://blog.kata.academy/api/articles?limit=${5}&offset=${(page - 1) * 5}`, {
+    const res = await fetch(`${this.url}/articles?limit=${5}&offset=${(page - 1) * 5}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -25,7 +25,7 @@ class Server {
       },
     };
     try {
-      const res = await fetch("https://blog.kata.academy/api/users", {
+      const res = await fetch(`${this.url}/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
@@ -52,7 +52,7 @@ class Server {
         password,
       },
     };
-    const res = await fetch("https://blog.kata.academy/api/users/login", {
+    const res = await fetch(`${this.url}/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -93,7 +93,7 @@ class Server {
   };
 
   getArticle = async (slug) => {
-    const res = await fetch(`https://blog.kata.academy/api/articles/${slug}`, {
+    const res = await fetch(`${this.url}/articles/${slug}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json;charset=utf-8",

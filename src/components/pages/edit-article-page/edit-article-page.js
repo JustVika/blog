@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { Alert, Spin } from "antd";
 
 import ArticleForm from "../../article-form/article-form";
 import { getOneArticle } from "../../../actions/index";
+import { mainPath } from "../../../const-path-page";
 
 function EditArticlePage({ slug }) {
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ function EditArticlePage({ slug }) {
   );
 
   if (complited && !load) {
-    return <Redirect to={`/articles/${article.slug}`} />;
+    return <Redirect to={`${mainPath}/${article.slug}`} />;
   }
   return <div className="article-edit">{content}</div>;
 }

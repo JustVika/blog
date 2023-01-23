@@ -6,6 +6,7 @@ import { Spin, Alert } from "antd";
 import "./single-article-page.css";
 import ArticleItem from "../../article-item/article-item";
 import { getOneArticle } from "../../../actions/index";
+import { mainPath } from "../../../const-path-page";
 
 function SingleArticlePage({ slug }) {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ function SingleArticlePage({ slug }) {
     isLoading
   );
   if (complited && !load) {
-    return <Redirect to="/articles" />;
+    return <Redirect to={mainPath} />;
   }
   return <div className="singleArticle">{content}</div>;
 }

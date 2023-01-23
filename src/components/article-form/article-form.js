@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { nanoid } from "nanoid";
 
 import { createArticle } from "../../actions";
+import { mainPath } from "../../const-path-page";
 
 import classes from "./article-form.module.scss";
 
@@ -33,7 +34,7 @@ function ArticleForm(props) {
     }
   }, []);
   if (!isLogin) {
-    return <Redirect to="/articles" />;
+    return <Redirect to={mainPath} />;
   }
   const onSubmit = (data) => {
     const tagList = tags.reduce((accumulator, element) => {
@@ -54,7 +55,7 @@ function ArticleForm(props) {
     );
   }
   if (complited && !load) {
-    return <Redirect to={`/articles/${article.slug}`} />;
+    return <Redirect to={`${mainPath}/${article.slug}`} />;
   }
 
   const deleteTag = (tag) => {

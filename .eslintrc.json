@@ -38,6 +38,7 @@
     "react/prop-types": 0,
     "default-param-last": "off",
     "react-hooks/exhaustive-deps": "off",
+
     "no-unused-expressions": "off",
     "react/static-property-placement": ["error", "static public field"],
     "react/state-in-constructor": ["error", "never"],
@@ -45,6 +46,7 @@
     "jsx-a11y/label-has-associated-control": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-props-no-spreading": 0,
+    "no-param-reassign": "warn",
     "import/order": [
       2,
       {

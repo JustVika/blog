@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 
 import UpChangeForm from "../../up-change-form/up-change-form";
+import { signInPath } from "../../../const-path-page";
 
 import classes from "./sign-up-page.module.scss";
 
@@ -16,7 +17,7 @@ function SignUpPage() {
       <UpChangeForm buttonName="Create" />
       <p className={classes["sign-up__transition-text"]}>
         Already have an account?{" "}
-        <Link to="/sign-in">
+        <Link to={signInPath}>
           <span className={classes["sign-up__link"]}>Sign In.</span>
         </Link>
       </p>

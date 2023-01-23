@@ -4,6 +4,7 @@ import { Redirect, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import { changeUserError, validationForm } from "../../../actions";
+import { signUpPath } from "../../../const-path-page";
 
 import classes from "./sign-in-page.module.scss";
 
@@ -61,11 +62,10 @@ function SignInPage() {
           />
           {userError["email or password"] && <p className={classes.form__error}>Email или пароль введены не верно</p>}
         </label>
-
         <input type="submit" className={classes.form__button} value="Login" />
         <p className={classes["sign-in__transition-text"]}>
           Don’t have an account?
-          <Link to="/sign-up">
+          <Link to={signUpPath}>
             <span className={classes["sign-in__link"]}>Sign Up.</span>
           </Link>
         </p>

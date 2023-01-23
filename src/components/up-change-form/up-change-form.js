@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { Redirect } from "react-router-dom";
 
 import { validationForm, changeUserError } from "../../actions/index";
+import { mainPath } from "../../const-path-page";
 
 import classes from "./up-change-form.module.scss";
 
@@ -35,7 +36,7 @@ function UpChangeForm(props) {
   }, []);
 
   if (userError?.notErrors) {
-    return <Redirect to="/articles" />;
+    return <Redirect to={mainPath} />;
   }
   const inputClassName = classes.form__input;
   return (
